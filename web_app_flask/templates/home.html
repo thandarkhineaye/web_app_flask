@@ -1,1 +1,13 @@
-<h1>Home Page</h1>
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="card text-center">
+    <div class="card-body">
+      <h2 class="card-title">Does the keywork 'Qualify' to Rank on 1st Page of Google?</h2>
+      <h3 class="card-text">Sign Out for 'FREE'!</h3>
+      <a href="#" class="btn btn-primary">Sign Up for free - 7 days Trial</a>
+      <h3 class="card-text">Plan starting at $5/mo only.</h3>
+    </div>
+</div>
+<script src="{{url_for('static', filename='main.js')}}"></script>
+{% endblock content %}
