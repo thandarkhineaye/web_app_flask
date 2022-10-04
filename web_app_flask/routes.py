@@ -1,8 +1,10 @@
 from flask import render_template
 from web_app_flask import app
+
+
 @app.route('/')
 def main():
-    return 'Hello from Main Page!!!'
+    return render_template('main.html')
 
 @app.route('/home')
 def home():
