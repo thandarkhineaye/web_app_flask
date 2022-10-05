@@ -21,7 +21,7 @@ source flaskenv/bin/activate
 
 2. Install all the required libraries 
 ```
-pip install flask
+pip install
 ```
 
 3. Run the APP to create a Flask front end on port 5000 (or any port the app is pointing to)
