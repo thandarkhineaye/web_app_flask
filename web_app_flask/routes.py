@@ -1,11 +1,12 @@
 from sre_constants import SUCCESS
 from flask import render_template, redirect, url_for, flash
-from web_app_flask import app
+from web_app_flask import app ,db
 from web_app_flask.forms import RegistrationForm, LogInForm
+from web_app_flask.models import User
 
 @app.route('/')
 @app.route('/home')
-def home():
+def home(): 
     return render_template('home.html', title='Home Page')
 
 @app.route('/account')
@@ -20,6 +21,9 @@ def about():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        user = User(username = form.username.data, email = form.email.data, password = form.password.data)
+        db.session.add(user)
+        db.session.commit()
         flash(f'Account created successfully for {form.username.data}', 'success')
         return  redirect(url_for('signin'))
     return render_template('Register.html', title='Sign Up', form=form)
@@ -28,7 +32,8 @@ def register():
 def signin():
     form = LogInForm()
     if form.validate_on_submit():
-        if form.email.data == 'thandar@flask.com' and form.password.data == '123456':
+        user = User.query.filter_by(email = form.email.data).first()
+        if form.email.data == user.email and form.password.data == user.password:
             flash(f'Sign In successful for {form.email.data}', category='success')
             return redirect(url_for('account'))
         else:
