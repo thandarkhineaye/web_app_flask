@@ -1,5 +1,7 @@
 # Environments
 .flaskenv
 
+instance
+
 # Cache
 web_app_flask/__pycache__/*
