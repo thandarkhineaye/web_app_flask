@@ -1,6 +1,6 @@
 from sre_constants import SUCCESS
 from flask import render_template, redirect, url_for, flash
-from web_app_flask import app ,db
+from web_app_flask import app ,db, bcrypt
 from web_app_flask.forms import RegistrationForm, LogInForm
 from web_app_flask.models import User
 
@@ -21,7 +21,8 @@ def about():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username = form.username.data, email = form.email.data, password = form.password.data)
+        bcryptPassword = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username = form.username.data, email = form.email.data, password = bcryptPassword)
         db.session.add(user)
         db.session.commit()
         flash(f'Account created successfully for {form.username.data}', 'success')
@@ -33,7 +34,7 @@ def signin():
     form = LogInForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email = form.email.data).first()
-        if form.email.data == user.email and form.password.data == user.password:
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
             flash(f'Sign In successful for {form.email.data}', category='success')
             return redirect(url_for('account'))
         else:
