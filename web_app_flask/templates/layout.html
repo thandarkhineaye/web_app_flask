@@ -19,9 +19,11 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{url_for('account')}}">Account</a>
-              </li>
+              {%if current_user.is_authenticated%}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('account')}}">Account</a>
+                </li>
+              {%endif%}
               <li class="nav-item">
                 <a class="nav-link" href="{{url_for('about')}}">About</a>
               </li>
@@ -29,12 +31,18 @@
           </div>
         </div>
         <ul class="navbar-nav justify-content-end">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{url_for('register')}}">SignUp</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('signin')}}">LogIn</a>
-            </li>
+            {%if current_user.is_authenticated%}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+              </li>
+            {%else%}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('register')}}">SignUp</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('signin')}}">Login</a>
+              </li>
+            {%endif%}
           </ul>
       </nav>
 </head>
