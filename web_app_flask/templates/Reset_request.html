@@ -4,7 +4,7 @@
     <form method="POST" action"">
         {{form.hidden_tag()}}
         <fieldset>
-            <legend class="border-bottom mb-4">Sign In</legend>
+            <legend class="border-bottom mb-4">{{legend}}</legend>
              <!-- Email -->
             <div class="form-group">
                 {{form.email.label(class="form-control-label")}}
@@ -18,23 +18,9 @@
                 {%endif %}
                 
             </div>
-            <!-- Password -->
-            <div class="form-group">
-                {{form.password.label(class="form-control-label")}}
-                {%if form.password.errors%}
-                {{form.password(class="form-control form-control-lg is-invalid")}}
-                    {%for error in form.password.errors%}
-                        <span>{{error}}</span>
-                    {%endfor%}
-                    {%else%}
-                    {{form.password(class="form-control form-control-lg")}}
-                {%endif %}
-                
-            </div>
         </fieldset>
         <div class="field-group mt-2">
             {{form.submit(class="btn btn-primary")}}
-            <a href="{{url_for('reset_request')}}" class=""> Forgot Password?</a>
         </div>
     </form>
 </div>
